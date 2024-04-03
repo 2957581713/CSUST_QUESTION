@@ -28,7 +28,7 @@ public class JWTUtil {
         payLoad.put("userId",userId);
         payLoad.put("authority",authority);
         String token = cn.hutool.jwt.JWTUtil.createToken(payLoad, key.getBytes());//就使用默认的签名算法
-        LOG.info("生成token{}",token);
+        LOG.info("生成token：{}",token);
         return token;
     }
 

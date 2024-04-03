@@ -1,7 +1,6 @@
 server:
   port: 9000
-  servlet:
-    context-path: /questionnaire
+
 
 spring:
   datasource:
@@ -9,5 +8,14 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: j1927881
+
+
+
+
+
 mybatis:
   mapper-locations: classpath:/mapper/**/*.xml
+
+logging:
+  level:
+    com.csust.csustquestion.mapper: trace
