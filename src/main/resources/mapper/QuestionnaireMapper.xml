@@ -13,6 +13,12 @@
                                    questionnaire_status, description)
             VALUES (#{id},#{questionnaireName},#{questionnaireTarget},#{questionnaireStatus},#{description})
     </insert>
+    <update id="setLase">
+        UPDATE questionnaire
+        SET
+            questionnaire_status = #{questionnaireStatus}
+        WHERE questionnaire_status != '已失效' and questionnaire_name = #{questionnaireName}
+    </update>
 
     <select id="selectNotDelete" resultMap="BaseResult">
         SELECT distinct questionnaire_name,questionnaire_status,questionnaire_target FROM questionnaire
@@ -21,5 +27,9 @@
     <select id="selectByName" resultMap="BaseResult">
         SELECT distinct * FROM questionnaire
         WHERE questionnaire_status != '已失效' and questionnaire_name = #{questionnaireName};
+    </select>
+    <select id="getQuestionNameByStatus" resultMap="BaseResult">
+        SELECT distinct questionnaire_name,questionnaire_status,questionnaire_target FROM questionnaire
+        WHERE questionnaire_status = #{status};
     </select>
 </mapper>

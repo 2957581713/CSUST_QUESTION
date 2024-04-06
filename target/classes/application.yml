@@ -9,6 +9,16 @@ spring:
     username: root
     password: j1927881
 
+# 启用 Springdoc 自动生成 API 文档
+springdoc:
+  api-docs:
+    enabled: true
+  # 配置生成的 API 文档的访问路径，默认为 "/v3/api-docs"
+    path: /v3/api-docs
+  # 配置 Swagger-UI 的访问路径，默认为 "/swagger-ui.html"
+  swagger-ui:
+    path: /swagger-ui.html
+
 
 
 

@@ -49,7 +49,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 
     @Override
     public String[] getQuestionAndStatus() {
-//        查出未生效的问卷
+//        查出未失效的问卷
         List<Questionnaire> questionnaires = questionnaireMapper.selectNotDelete();
         String[] result = new String[questionnaires.size()];
         for (int i = 0; i < questionnaires.size(); i++) {
@@ -188,6 +188,24 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         questionMapper.insertList(questionList);
 
         return;
+    }
+
+    @Override
+    public void updateStatus(String questionnaireName, String questionnaireStatus) {
+//        将其设置为失效 TODO 对接前端让他只传一个id过来删除
+        questionnaireMapper.setLase(questionnaireName,questionnaireStatus);
+    }
+
+    @Override
+    public String[] getQuestionAndStatus2() {
+        List<Questionnaire> questionnaires = questionnaireMapper.getQuestionNameByStatus(QuestionnaireStatusEnum.PUBLISH.getStatus());
+        String[] result = new String[questionnaires.size()];
+        for (int i = 0; i < questionnaires.size(); i++) {
+            Questionnaire questionnaire = questionnaires.get(i);
+            result[i] = "name:"+questionnaire.getQuestionnaireName()+"<>status:"+
+                    questionnaire.getQuestionnaireStatus()+"<>target:"+questionnaire.getQuestionnaireTarget();
+        }
+        return result;
     }
 
 }

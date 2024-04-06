@@ -17,4 +17,8 @@ public interface QuestionnaireService {
     保存问卷
      */
     void create(QuestionnaireVo questionnaireVo);
+
+    void updateStatus(String questionnaireName, String questionnaireStatus);
+
+    String[] getQuestionAndStatus2();
 }

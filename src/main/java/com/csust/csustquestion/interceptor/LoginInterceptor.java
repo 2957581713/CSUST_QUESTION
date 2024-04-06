@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,11 +22,14 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if(!(handler instanceof HandlerMethod)) return true;
         if ("OPTIONS".equals(request.getMethod()))
             return true;
+        StringBuffer requestURL = request.getRequestURL();
         String authorization = request.getHeader("Authorization");//获得token
         if(StrUtil.isBlank(authorization)){
             LOG.error("token不存在！");
+            response.setStatus(401);
             return false;
         }
         boolean validate = JWTUtil.validate(authorization);
@@ -38,6 +42,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         }
         LOG.error("token无效");
+        response.setStatus(401);
         return false;
 
 
