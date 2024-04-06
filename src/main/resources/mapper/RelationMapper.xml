@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csust.csustquestion.mapper.RelationMapper">
+
+   <resultMap id="BaseResult" type="com.csust.csustquestion.domain.Relation">
+       <id property="id" jdbcType="BIGINT" column="id"/>
+       <result property="userId" jdbcType="BIGINT" column="user_id"/>
+       <result property="optionId" jdbcType="BIGINT" column="option_id"/>
+       <result property="optionContent" jdbcType="VARCHAR" column="option_content"/>
+       <result property="userStatus" jdbcType="VARCHAR" column="user_status"/>
+   </resultMap>
+    <select id="countByOptionId" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM answer_option_relation WHERE option_id = #{optionId}
+    </select>
+
+
+</mapper>

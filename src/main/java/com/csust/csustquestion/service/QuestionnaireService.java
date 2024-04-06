@@ -1,6 +1,7 @@
 package com.csust.csustquestion.service;
 
 import com.csust.csustquestion.vo.QuestionnaireVo;
+import com.csust.csustquestion.vo.ResultVo;
 
 public interface QuestionnaireService {
 
@@ -21,4 +22,6 @@ public interface QuestionnaireService {
     void updateStatus(String questionnaireName, String questionnaireStatus);
 
     String[] getQuestionAndStatus2();
+
+    ResultVo getResult(String questionnaireName);
 }

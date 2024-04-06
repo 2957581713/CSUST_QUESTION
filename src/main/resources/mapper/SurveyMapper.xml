@@ -29,6 +29,12 @@
         where questionnaire_id = #{questionnaireId}
         Order by id asc
     </select>
+    <select id="getNameByQuestionName" resultType="java.lang.String">
+        SELECT survey_name FROM survey_info WHERE questionnaire_name = #{questionnaireName}
+    </select>
+    <select id="getByQuestionName" resultMap="BaseResult">
+        SELECT * FROM survey_info where questionnaire_name = #{questionnaireName}
+    </select>
 
 
 </mapper>

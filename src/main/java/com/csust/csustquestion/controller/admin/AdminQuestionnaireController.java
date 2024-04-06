@@ -4,6 +4,7 @@ import com.csust.csustquestion.domain.Questionnaire;
 import com.csust.csustquestion.result.ResultEntity;
 import com.csust.csustquestion.service.QuestionnaireService;
 import com.csust.csustquestion.vo.QuestionnaireVo;
+import com.csust.csustquestion.vo.ResultVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -57,4 +58,10 @@ public class AdminQuestionnaireController {
         return ResultEntity.successWithData(questionnaireService.getQuestionAndStatus2());
     }
 
+
+    @GetMapping("/result/all")
+    public ResultEntity getResult(@RequestParam("questionnaireName") String questionnaireName){
+        ResultVo resultVo = questionnaireService.getResult(questionnaireName);
+        return ResultEntity.successWithData(resultVo);
+    }
 }

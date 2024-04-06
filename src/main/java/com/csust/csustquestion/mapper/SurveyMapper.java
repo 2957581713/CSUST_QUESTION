@@ -8,4 +8,8 @@ public interface SurveyMapper {
     List<Survey> getByQuestionId(Long questionnaireId);
 
     void insertList(List<Survey> surveyList);
+
+    List<String> getNameByQuestionName(String questionnaireName);
+
+    List<Survey> getByQuestionName(String questionnaireName);
 }

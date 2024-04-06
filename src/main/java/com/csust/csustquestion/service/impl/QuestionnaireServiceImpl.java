@@ -12,14 +12,12 @@ import com.csust.csustquestion.enums.QuestionTypeEnum;
 import com.csust.csustquestion.enums.QuestionnaireStatusEnum;
 import com.csust.csustquestion.enums.SurveyStatusEnum;
 import com.csust.csustquestion.exception.BusinessException;
-import com.csust.csustquestion.mapper.OptionMapper;
-import com.csust.csustquestion.mapper.QuestionMapper;
-import com.csust.csustquestion.mapper.QuestionnaireMapper;
-import com.csust.csustquestion.mapper.SurveyMapper;
+import com.csust.csustquestion.mapper.*;
 import com.csust.csustquestion.service.OptionService;
 import com.csust.csustquestion.service.QuestionnaireService;
 import com.csust.csustquestion.util.SnowUtil;
 import com.csust.csustquestion.vo.QuestionnaireVo;
+import com.csust.csustquestion.vo.ResultVo;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +41,9 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     private OptionMapper optionMapper;
     @Resource
     private OptionService optionService;
+
+    @Resource
+    private RelationMapper relationMapper;
 
 
 
@@ -206,6 +207,51 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
                     questionnaire.getQuestionnaireStatus()+"<>target:"+questionnaire.getQuestionnaireTarget();
         }
         return result;
+    }
+
+    @Override
+    public ResultVo getResult(String questionnaireName) {
+        ResultVo resultVo = new ResultVo();
+        List<Survey> surveyList = surveyMapper.getByQuestionName(questionnaireName);
+        String[][] questionResult = new String[surveyList.size()][10];
+        String[] surveyNames = new String[surveyList.size()];
+        for (int i = 0; i < surveyList.size(); i++) {
+            Survey survey = surveyList.get(i);
+            surveyNames[i] = survey.getSurveyName();
+            List<Question> questions = questionMapper.selectBySurveyId(survey.getId());
+            for (int j = 0; j < questions.size(); j++) {
+                Question question = questions.get(j);
+                if(!question.getQuestionType().equals("填空")){
+                    StringBuilder sd = new StringBuilder();
+                    sd.append("question:");
+                    sd.append(question.getQuestionDescription());
+                    sd.append("type:");
+                    sd.append(question.getQuestionType());
+                    sd.append("option:");
+                    List<Option> options = optionMapper.getQuestionOption(question.getId());
+                    for (int s = 0; s < options.size(); s++) {
+                        Option option = options.get(s);
+                        sd.append(option.getOptionName());
+                        if(s == options.size() - 1)break;
+                        sd.append("&&");
+                    }
+                    sd.append("result:");
+                    for (int x = 0; x < options.size(); x++) {
+                        Option option = options.get(x);
+//                        选择该选项人数
+                        Integer num = relationMapper.countByOptionId(option.getId());
+                        sd.append(num);
+                        if(x < options.size() - 1) sd.append("**");
+                    }
+                    questionResult[i][j] = sd.toString();
+                }
+
+            }
+        }
+        resultVo.setQuestionnaireName(questionnaireName);
+        resultVo.setSurveyName(surveyNames);
+        resultVo.setResultNum(questionResult);
+        return resultVo;
     }
 
 }
