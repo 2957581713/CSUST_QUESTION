@@ -74,7 +74,7 @@ public class LogAspect {
         String[] ex = {"userpassword"};
         PropertyPreFilters.MySimplePropertyPreFilter es = propertyPreFilters.addFilter(ex);
         LOG.info("返回结果：{}",JSONObject.toJSONString(proceed,es));
-        LOG.info("---  请求结束，用时：{}",System.currentTimeMillis()-start);
+        LOG.info("---  请求结束，用时：{}ms",System.currentTimeMillis()-start);
         return proceed;
     }
 }

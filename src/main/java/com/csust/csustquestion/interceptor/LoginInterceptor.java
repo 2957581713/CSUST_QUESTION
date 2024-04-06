@@ -21,6 +21,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if ("OPTIONS".equals(request.getMethod()))
+            return true;
         String authorization = request.getHeader("Authorization");//获得token
         if(StrUtil.isBlank(authorization)){
             LOG.error("token不存在！");

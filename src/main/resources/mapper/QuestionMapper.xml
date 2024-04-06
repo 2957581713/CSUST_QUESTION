@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csust.csustquestion.mapper.QuestionMapper">
+
+    <resultMap id="BaseResult" type="com.csust.csustquestion.domain.Question">
+        <id property="id" jdbcType="BIGINT" column="id"/>
+        <result property="surveyId" jdbcType="BIGINT" column="survey_id"/>
+        <result property="questionType" jdbcType="CHAR" column="question_type"/>
+        <result property="questionDescription" jdbcType="VARCHAR" column="question_description"/>
+        <result property="questionSort" jdbcType="INTEGER" column="question_sort"/>
+        <result property="requiredFlag" jdbcType="CHAR" column="required_flag"/>
+    </resultMap>
+    <insert id="insertList">
+        insert into question_info (id, survey_id, question_type,
+                                   question_description, question_sort, required_flag)
+            VALUES
+                <foreach collection="questionList" separator="," item="ql">
+                    (#{ql.id},#{ql.surveyId},#{ql.questionType},
+                    #{ql.questionDescription},#{ql.questionSort},#{ql.requiredFlag})
+                </foreach>
+    </insert>
+    <select id="selectBySurveyId" resultMap="BaseResult">
+        SELECT * FROM question_info
+        WHERE survey_id = #{surveyId}
+        order by id asc;
+    </select>
+
+
+</mapper>

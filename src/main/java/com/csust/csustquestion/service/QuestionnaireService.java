@@ -1,0 +1,20 @@
+package com.csust.csustquestion.service;
+
+import com.csust.csustquestion.vo.QuestionnaireVo;
+
+public interface QuestionnaireService {
+
+
+    /**
+     * 返回页表里问卷的名字和状态
+     * @return
+     */
+    String[] getQuestionAndStatus();
+
+    QuestionnaireVo getQuestionnaire(String questionnaireName);
+
+    /*
+    保存问卷
+     */
+    void create(QuestionnaireVo questionnaireVo);
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csust.csustquestion.mapper.QuestionnaireMapper">
+    <resultMap id="BaseResult" type="com.csust.csustquestion.domain.Questionnaire">
+        <id property="id" jdbcType="BIGINT" column="id"/>
+        <result property="questionnaireName" jdbcType="VARCHAR" column="questionnaire_name"/>
+        <result property="questionnaireTarget" jdbcType="VARCHAR" column="questionnaire_target"/>
+        <result property="questionnaireStatus" jdbcType="VARCHAR" column="questionnaire_status"/>
+        <result property="description" jdbcType="LONGVARCHAR" column="description"/>
+    </resultMap>
+    <insert id="insert">
+        INSERT INTO questionnaire (id, questionnaire_name, questionnaire_target,
+                                   questionnaire_status, description)
+            VALUES (#{id},#{questionnaireName},#{questionnaireTarget},#{questionnaireStatus},#{description})
+    </insert>
+
+    <select id="selectNotDelete" resultMap="BaseResult">
+        SELECT distinct questionnaire_name,questionnaire_status,questionnaire_target FROM questionnaire
+        WHERE questionnaire_status != '已失效';
+    </select>
+    <select id="selectByName" resultMap="BaseResult">
+        SELECT distinct * FROM questionnaire
+        WHERE questionnaire_status != '已失效' and questionnaire_name = #{questionnaireName};
+    </select>
+</mapper>

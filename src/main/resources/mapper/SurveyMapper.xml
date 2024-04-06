@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csust.csustquestion.mapper.SurveyMapper">
+    <resultMap id="BaseResult" type="com.csust.csustquestion.domain.Survey">
+        <id property="id" jdbcType="BIGINT" column="id"/>
+        <result property="questionnaireName" jdbcType="VARCHAR" column="questionnaire_name"/>
+        <result property="status" jdbcType="CHAR" column="status"/>
+        <result property="createDate" jdbcType="TIMESTAMP" column="create_date"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="updateDate"/>
+        <result property="surveyName" jdbcType="VARCHAR" column="survey_name"/>
+        <result property="questionnaireId" jdbcType="BIGINT" column="questionnaire_id"/>
+
+    </resultMap>
+    <insert id="insertList">
+        insert into survey_info (`id`, `survey_name`, `questionnaire_name`,
+                                 `status`, `create_date`, `update_date`,
+                                 `questionnaire_id`)
+            VALUES
+                <foreach collection="surveyList" separator="," item="sl">
+                    (#{sl.id},#{sl.surveyName},#{sl.questionnaireName},
+                    #{sl.status},#{sl.createDate},#{sl.updateDate},
+                    #{sl.questionnaireId})
+                </foreach>
+
+
+    </insert>
+    <select id="getByQuestionId" resultMap="BaseResult">
+        SELECT survey_name,id FROM survey_info
+        where questionnaire_id = #{questionnaireId}
+        Order by id asc
+    </select>
+
+
+</mapper>

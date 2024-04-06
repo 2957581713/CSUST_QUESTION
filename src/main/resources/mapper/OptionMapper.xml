@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csust.csustquestion.mapper.OptionMapper">
+
+    <resultMap id="BaseResultMap" type="com.csust.csustquestion.domain.Option">
+        <id property="id" jdbcType="BIGINT" column="id"/>
+        <result property="optionName" jdbcType="VARCHAR" column="option_name"/>
+        <result property="questionId" jdbcType="BIGINT" column="question_id"/>
+    </resultMap>
+    <insert id="insertList">
+        insert into option_info (id, question_id, option_name)
+            VALUES
+                <foreach collection="optionList" item="ol" separator=",">
+                    (#{ol.id},#{ol.questionId},#{ol.optionName})
+                </foreach>
+    </insert>
+    <select id="getQuestionOption" resultMap="BaseResultMap">
+        SELECT * FROM option_info where question_id = #{questionId} order by id asc;
+    </select>
+
+
+</mapper>
