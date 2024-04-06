@@ -1,14 +1,17 @@
 package com.csust.csustquestion.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateTime;
 import com.csust.csustquestion.domain.Option;
 import com.csust.csustquestion.domain.Question;
 import com.csust.csustquestion.domain.Questionnaire;
 import com.csust.csustquestion.domain.Survey;
+import com.csust.csustquestion.enums.BusinessExceptionEnums;
 import com.csust.csustquestion.enums.QuestionTypeEnum;
 import com.csust.csustquestion.enums.QuestionnaireStatusEnum;
 import com.csust.csustquestion.enums.SurveyStatusEnum;
+import com.csust.csustquestion.exception.BusinessException;
 import com.csust.csustquestion.mapper.OptionMapper;
 import com.csust.csustquestion.mapper.QuestionMapper;
 import com.csust.csustquestion.mapper.QuestionnaireMapper;
@@ -100,11 +103,18 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         return questionnaireVo;
     }
 
-    // 后面加入修改的功能
+    // TODO 后面加入修改的功能
 //    添加涉及到的表有：问卷，问题，模块，选项
     @Override
     @Transactional
     public void create(QuestionnaireVo questionnaireVo) {
+//        先校验是否存在同名的未失效的问卷
+        Questionnaire questionnaire1 = questionnaireMapper.selectByName(questionnaireVo.getQuestionnaireName());
+        if(BeanUtil.isNotEmpty(questionnaire1)){
+            throw new BusinessException(BusinessExceptionEnums.CREATE_EXIST.getMessage());
+        }
+
+
         Questionnaire questionnaire = new Questionnaire();
         Long questionnaireId = SnowUtil.getSnowflakeNextId();
         questionnaire.setId(questionnaireId);
