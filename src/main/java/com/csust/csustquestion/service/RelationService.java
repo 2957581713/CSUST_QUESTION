@@ -22,4 +22,6 @@ public interface RelationService {
     Integer countByTeacherCampus(Long optionId, String campus, Long questionnaireId);
 
     List<Relation> getByOptionId(Long optionId);
+
+    void addRelations(List<Relation> relations);
 }

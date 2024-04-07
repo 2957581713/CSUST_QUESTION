@@ -9,6 +9,17 @@
        <result property="optionContent" jdbcType="VARCHAR" column="option_content"/>
        <result property="userStatus" jdbcType="VARCHAR" column="user_status"/>
    </resultMap>
+    <insert id="insertList">
+        INSERT INTO answer_option_relation (id, user_id, option_id,
+                                            option_content, user_status)
+            VALUES
+                <foreach collection="relations" item="r" separator=",">
+                    (#{r.id},#{r.userId},#{r.optionId},
+                    #{r.optionContent},#{r.userStatus})
+                </foreach>
+
+
+    </insert>
     <select id="countByOptionId" resultType="java.lang.Integer">
         SELECT COUNT(id) FROM answer_option_relation WHERE option_id = #{optionId}
     </select>

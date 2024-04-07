@@ -2,6 +2,8 @@ package com.csust.csustquestion.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.csust.csustquestion.domain.Relation;
+import com.csust.csustquestion.enums.BusinessExceptionEnums;
+import com.csust.csustquestion.exception.BusinessException;
 import com.csust.csustquestion.mapper.RelationMapper;
 import com.csust.csustquestion.mapper.StudentMapper;
 import com.csust.csustquestion.mapper.TeacherMapper;
@@ -82,6 +84,12 @@ public class RelationServiceImpl implements RelationService {
     @Override
     public List<Relation> getByOptionId(Long optionId) {
         return relationMapper.getByOptionId(optionId);
+    }
+
+    @Override
+    public void addRelations(List<Relation> relations) {
+        if(CollUtil.isEmpty(relations)) throw new BusinessException(BusinessExceptionEnums.QUESTIONNAIRENOTCOMLETED.getMessage());
+        relationMapper.insertList(relations);
     }
 
     private Integer countTeacherByCondition(Long optionId,Long questionnaireId, String sort, String sex,String campus) {

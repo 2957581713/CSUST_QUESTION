@@ -13,4 +13,6 @@ public interface RelationMapper {
     int countByOptionIdAndTeacherIdList(@Param("subList") List<Long> subList,@Param("optionId") Long optionId);
 
     List<Relation> getByOptionId(Long optionId);
+
+    void insertList(List<Relation> relations);
 }

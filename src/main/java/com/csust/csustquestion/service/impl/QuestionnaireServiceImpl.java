@@ -142,10 +142,11 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
             survey.setId(surveyId);
             survey.setSurveyName(surveyNames[i]);
             survey.setQuestionnaireName(questionnaireName);
-            survey.setStatus(SurveyStatusEnum.STATING.getCode());
+
             survey.setCreateDate(now.toTimestamp());
             survey.setUpdateDate(now.toTimestamp());
             survey.setQuestionnaireId(questionnaireId);
+            survey.setSort(i);
             surveyList.add(survey);
 
             for (int j = 0; j < questionOptions[i].length; j++) {
@@ -161,7 +162,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
                 question.setSurveyId(surveyId);
                 question.setQuestionType(strType);
                 question.setQuestionDescription(strQuestion);
-                question.setQuestionSort(0);
+                question.setQuestionSort(j);
                 question.setRequiredFlag("0");//0必填，1非必填
                 questionList.add(question);
                 if(!strType.equals(QuestionTypeEnum.BLANK.getDesc())){

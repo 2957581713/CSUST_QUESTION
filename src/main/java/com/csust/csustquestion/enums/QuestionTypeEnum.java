@@ -1,7 +1,7 @@
 package com.csust.csustquestion.enums;
 
 public enum QuestionTypeEnum {
-    OPTION("选择"),
+    OPTION("单选"),
     OPTIONS("多选"),
     BLANK("填空"),
 

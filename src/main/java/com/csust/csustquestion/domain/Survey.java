@@ -16,12 +16,12 @@ public class Survey implements Serializable {
   private String surveyName;
   
   private String questionnaireName;
-  
-  private String status;
+
   
   private Timestamp createDate;
   
   private Timestamp updateDate;
 
   private Long questionnaireId;
+  private Integer sort;
 }

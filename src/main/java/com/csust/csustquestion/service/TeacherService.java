@@ -6,4 +6,6 @@ public interface TeacherService {
     Teacher getById(Long id);
 
     Long getTeacherId(String openId,Long questionnaireId);
+
+    void add(Teacher teacher);
 }

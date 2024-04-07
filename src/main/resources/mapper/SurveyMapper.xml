@@ -4,22 +4,21 @@
     <resultMap id="BaseResult" type="com.csust.csustquestion.domain.Survey">
         <id property="id" jdbcType="BIGINT" column="id"/>
         <result property="questionnaireName" jdbcType="VARCHAR" column="questionnaire_name"/>
-        <result property="status" jdbcType="CHAR" column="status"/>
         <result property="createDate" jdbcType="TIMESTAMP" column="create_date"/>
         <result property="updateDate" jdbcType="TIMESTAMP" column="updateDate"/>
         <result property="surveyName" jdbcType="VARCHAR" column="survey_name"/>
         <result property="questionnaireId" jdbcType="BIGINT" column="questionnaire_id"/>
-
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
     </resultMap>
     <insert id="insertList">
         insert into survey_info (`id`, `survey_name`, `questionnaire_name`,
-                                 `status`, `create_date`, `update_date`,
-                                 `questionnaire_id`)
+                                 `create_date`, `update_date`,
+                                 `questionnaire_id`,`sort`)
             VALUES
                 <foreach collection="surveyList" separator="," item="sl">
                     (#{sl.id},#{sl.surveyName},#{sl.questionnaireName},
-                    #{sl.status},#{sl.createDate},#{sl.updateDate},
-                    #{sl.questionnaireId})
+                    #{sl.createDate},#{sl.updateDate},
+                    #{sl.questionnaireId},#{sl.sort})
                 </foreach>
 
 
@@ -27,16 +26,16 @@
     <select id="getByQuestionId" resultMap="BaseResult">
         SELECT survey_name,id FROM survey_info
         where questionnaire_id = #{questionnaireId}
-        Order by id asc
+        Order by sort asc
     </select>
     <select id="getNameByQuestionName" resultType="java.lang.String">
-        SELECT survey_name FROM survey_info WHERE questionnaire_name = #{questionnaireName}
+        SELECT survey_name FROM survey_info WHERE questionnaire_name = #{questionnaireName} Order by sort asc
     </select>
     <select id="getByQuestionName" resultMap="BaseResult">
-        SELECT * FROM survey_info where questionnaire_name = #{questionnaireName}
+        SELECT * FROM survey_info where questionnaire_name = #{questionnaireName} Order by sort asc
     </select>
     <select id="getIdsByQuestionId" resultType="java.lang.Long">
-        SELECT `id` FROM survey_info WHERE questionnaire_id = #{questionnaireId}
+        SELECT `id` FROM survey_info WHERE questionnaire_id = #{questionnaireId} Order by sort asc
     </select>
 
 

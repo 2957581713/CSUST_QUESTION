@@ -12,8 +12,14 @@
     <result property="questionnaireName" jdbcType="VARCHAR" column="questionnaire_name"/>
     <result property="sort" jdbcType="VARCHAR" column="sort"/>
   </resultMap>
+    <insert id="insert">
+      INSERT INTO teacher_info (`id`, `campus`, `open_id`,
+                                `questionnaire_name`, `sort`, `questionnaire_id`)
+        VALUE (#{id},#{campus},#{openId},
+              #{questionnaireName},#{sort},#{questionniareId})
+    </insert>
 
-  <select id="getTeacherIdsBySortAndQuestionnaireId" resultType="java.lang.Long">
+    <select id="getTeacherIdsBySortAndQuestionnaireId" resultType="java.lang.Long">
     SELECT `id` FROM teacher_info where `sort` = #{sort} and `questionnaire_id` = #{questionnaireId}
   </select>
   <select id="getTeacherIdsBySexAndQuestionnaireId" resultType="java.lang.Long">

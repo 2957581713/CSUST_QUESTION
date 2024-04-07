@@ -21,4 +21,9 @@ public class TeacherServiceImpl implements TeacherService {
     public Long getTeacherId(String openId,Long questionnaireId) {
         return teacherMapper.getIdByOpenId(openId,questionnaireId);
     }
+
+    @Override
+    public void add(Teacher teacher) {
+        teacherMapper.insert(teacher);
+    }
 }

@@ -22,4 +22,9 @@ public class StudentServiceImpl implements StudentService {
     public Long getStudentId(String openId, Long questionnaireId) {
         return studentMapper.getIdByOpenIdAndQuestionnaireId(openId,questionnaireId);
     }
+
+    @Override
+    public void add(Student student) {
+        studentMapper.insert(student);
+    }
 }

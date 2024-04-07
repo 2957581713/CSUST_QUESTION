@@ -2,7 +2,9 @@ package com.csust.csustquestion.enums;
 
 public enum BusinessExceptionEnums {
     CREATE_EXIST("存在未失效的同名问卷!"),
-    EXCEPTION("系统异常，请联系管理员")
+    EXCEPTION("系统异常，请联系管理员"),
+    QUESTIONNAIRECOMLETED("问卷已完成！"),
+    QUESTIONNAIRENOTCOMLETED("问卷未完成！"),
     ;
 
 

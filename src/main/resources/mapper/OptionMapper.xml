@@ -20,6 +20,9 @@
     <select id="getIdByQuestionId" resultType="java.lang.Long">
         SELECT id FROM option_info WHERE question_id = #{questionId}
     </select>
+    <select id="getIdByOptionNameAndQuestionId" resultType="java.lang.Long">
+        SELECT id FROM option_info WHERE question_id =#{questionId} and option_name = #{optionName}
+    </select>
 
 
 </mapper>

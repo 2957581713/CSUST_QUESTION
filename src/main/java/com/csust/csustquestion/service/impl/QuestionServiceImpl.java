@@ -17,4 +17,9 @@ public class QuestionServiceImpl implements QuestionService {
     public List<Question> getTypeQuestionInSurveyId(List<Long> surveyIdList,String type) {
         return questionMapper.getTypeQuestionInSurveyId(surveyIdList, type);
     }
+
+    @Override
+    public List<Question> getBySurveyId(Long surveyId) {
+        return questionMapper.selectBySurveyId(surveyId);
+    }
 }

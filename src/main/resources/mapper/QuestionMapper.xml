@@ -22,7 +22,7 @@
     <select id="selectBySurveyId" resultMap="BaseResult">
         SELECT * FROM question_info
         WHERE survey_id = #{surveyId}
-        order by id asc;
+        order by question_sort asc;
     </select>
     <select id="getTypeQuestionInSurveyId" resultMap="BaseResult">
         SELECT * FROM question_info
@@ -35,7 +35,7 @@
                 </foreach>
             </if>
         </where>
-
+        order by question_sort asc
 
     </select>
 

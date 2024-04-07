@@ -44,4 +44,9 @@ public class OptionServiceImpl implements OptionService {
     public Long getIdByQuestionId(Long questionId) {
         return optionMapper.getIdByQuestionId(questionId);
     }
+
+    @Override
+    public Long getIdByOptionNameAndQuestionId(Long questionId, String optionName) {
+        return optionMapper.getIdByOptionNameAndQuestionId(questionId,optionName);
+    }
 }

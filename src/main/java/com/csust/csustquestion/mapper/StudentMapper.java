@@ -18,4 +18,6 @@ public interface StudentMapper {
 
     Long getIdByOpenIdAndQuestionnaireId(@Param("openId") String openId,
                                          @Param("questionnaireId") Long questionnaireId);
+
+    void insert(Student student);
 }

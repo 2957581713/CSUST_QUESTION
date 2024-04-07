@@ -1,5 +1,7 @@
 package com.csust.csustquestion.controller.user;
 
+import cn.hutool.extra.ssh.JschUtil;
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.csust.csustquestion.domain.Questionnaire;
 import com.csust.csustquestion.enums.TargetEnum;
@@ -7,6 +9,7 @@ import com.csust.csustquestion.result.ResultEntity;
 import com.csust.csustquestion.service.*;
 import com.csust.csustquestion.util.Base64Utils;
 import com.csust.csustquestion.util.WeChatUtil;
+import com.csust.csustquestion.vo.QuestionOptionVo;
 import com.csust.csustquestion.vo.QuestionnaireVo;
 import com.csust.csustquestion.vo.Vo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -59,13 +62,19 @@ public class WxController {
         if(questionnaire.getQuestionnaireTarget().equals(identity)){
             if(identity.equals(TargetEnum.TEACHER.getTarget())) teacherId = teacherService.getTeacherId(Base64Utils.decode(open_id),questionnaire.getId());
             if(identity.equals(TargetEnum.STUDENT.getTarget())) studentId = studentService.getStudentId(Base64Utils.decode(open_id),questionnaire.getId());
-            else return false;
+
         }else return false;
         if (studentId == null && teacherId == null)
             return true;
         return false;
     }
 
+    @PostMapping({"/questionnaire/upload"})
+    public ResultEntity UploadFilledQuestionnaire(@RequestBody QuestionOptionVo questionOptionVo) {
+        userService.save(questionOptionVo);
+        System.out.println(JSONUtil.toJsonStr(questionOptionVo));
+        return ResultEntity.successWithoutData();
+    }
 
 
 }
