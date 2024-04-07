@@ -60,8 +60,69 @@ public class AdminQuestionnaireController {
 
 
     @GetMapping("/result/all")
+    @Operation(summary = "获得总体数据分析报告")
     public ResultEntity getResult(@RequestParam("questionnaireName") String questionnaireName){
         ResultVo resultVo = questionnaireService.getResult(questionnaireName);
+        return ResultEntity.successWithData(resultVo);
+    }
+
+
+    @GetMapping("/result/teacher")
+    @Operation(summary = "获得老师分析报告")
+    public ResultEntity getTeacherResult(@RequestParam("questionnaireName") String questionnaireName) {
+        ResultVo resultVo = questionnaireService.getResult(questionnaireName);
+        return ResultEntity.successWithData(resultVo);
+    }
+
+    @GetMapping("/result/student")
+    @Operation(summary = "获得学生分析报告")
+    public ResultEntity getStudentResult(@RequestParam("questionnaireName") String questionnaireName) {
+        ResultVo resultVo = questionnaireService.getResult(questionnaireName);
+        return ResultEntity.successWithData(resultVo);
+    }
+
+
+    @GetMapping("/result/grade")
+    @Operation(summary = "获得年级分析报告")
+    public ResultEntity getGradeResult(@RequestParam("questionnaireName") String questionnaireName,
+                                       @RequestParam("grade") String grade) {
+        ResultVo resultVo = questionnaireService.getResultByGrade(questionnaireName,grade);
+        return ResultEntity.successWithData(resultVo);
+    }
+
+    @GetMapping("/result/sex")
+    @Operation(summary = "获得性别分析报告")
+    public ResultEntity getSexResult(@RequestParam("questionnaireName") String questionnaireName,
+                                       @RequestParam("sex") String sex) {
+        ResultVo resultVo = questionnaireService.getResultBySex(questionnaireName,sex);
+        return ResultEntity.successWithData(resultVo);
+    }
+
+
+    @GetMapping({"/result/campus"})
+    @Operation(summary = "获得校区分析报告")
+    public ResultEntity GetCampusResult(@RequestParam("questionnaireName") String questionnaireName,
+                                        @RequestParam("campus") String campus) {
+        ResultVo resultVo = questionnaireService.getResultByCampus(questionnaireName,campus);
+        return ResultEntity.successWithData(resultVo);
+
+    }
+
+
+    @GetMapping("/result/academy")
+    @Operation(summary = "获得学院分析报告")
+    public ResultEntity getAcademyResult(@RequestParam("questionnaireName") String questionnaireName,
+                                         @RequestParam("academyName") String academyName) {
+        ResultVo resultVo = questionnaireService.getResultByAcademyName(questionnaireName,academyName);
+        return ResultEntity.successWithData(resultVo);
+    }
+
+
+    @GetMapping({"/result/sort"})
+    @Operation(summary = "获得老师种类的分析报告")
+    public ResultEntity getSortResult(@RequestParam("questionnaireName") String questionnaireName,
+                                      @RequestParam("sort") String sort) {
+        ResultVo resultVo = questionnaireService.getResultBySort(questionnaireName,sort);
         return ResultEntity.successWithData(resultVo);
     }
 }

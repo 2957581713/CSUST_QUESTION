@@ -7,14 +7,12 @@ import com.csust.csustquestion.domain.Option;
 import com.csust.csustquestion.domain.Question;
 import com.csust.csustquestion.domain.Questionnaire;
 import com.csust.csustquestion.domain.Survey;
-import com.csust.csustquestion.enums.BusinessExceptionEnums;
-import com.csust.csustquestion.enums.QuestionTypeEnum;
-import com.csust.csustquestion.enums.QuestionnaireStatusEnum;
-import com.csust.csustquestion.enums.SurveyStatusEnum;
+import com.csust.csustquestion.enums.*;
 import com.csust.csustquestion.exception.BusinessException;
 import com.csust.csustquestion.mapper.*;
 import com.csust.csustquestion.service.OptionService;
 import com.csust.csustquestion.service.QuestionnaireService;
+import com.csust.csustquestion.service.RelationService;
 import com.csust.csustquestion.util.SnowUtil;
 import com.csust.csustquestion.vo.QuestionnaireVo;
 import com.csust.csustquestion.vo.ResultVo;
@@ -43,7 +41,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
     private OptionService optionService;
 
     @Resource
-    private RelationMapper relationMapper;
+    private RelationService relationService;
 
 
 
@@ -211,7 +209,42 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 
     @Override
     public ResultVo getResult(String questionnaireName) {
+        return getResultByCondition(questionnaireName,null,null,null,null,null);
+    }
+
+    @Override
+    public ResultVo getResultByGrade(String questionnaireName, String grade) {
+        return getResultByCondition(questionnaireName,grade,null,null,null,null);
+    }
+
+    @Override
+    public ResultVo getResultBySex(String questionnaireName, String sex) {
+        return getResultByCondition(questionnaireName,null,sex,null,null,null);
+    }
+
+    @Override
+    public ResultVo getResultByCampus(String questionnaireName, String campus) {
+        return getResultByCondition(questionnaireName,null,null,campus,null,null);
+    }
+
+    @Override
+    public ResultVo getResultByAcademyName(String questionnaireName, String academyName) {
+        return getResultByCondition(questionnaireName,null,null,
+                null,academyName,null);
+    }
+
+    @Override
+    public ResultVo getResultBySort(String questionnaireName, String sort) {
+        return getResultByCondition(questionnaireName,null,null,null,null,sort);
+    }
+
+
+    private ResultVo getResultByCondition(String questionnaireName, String grade,String sex,String campus,
+                                          String academy,String sort) {
         ResultVo resultVo = new ResultVo();
+        Questionnaire questionnaire = questionnaireMapper.selectByName(questionnaireName);
+        Long questionnaireId = questionnaire.getId();
+        String questionnaireTarget = questionnaire.getQuestionnaireTarget();
         List<Survey> surveyList = surveyMapper.getByQuestionName(questionnaireName);
         String[][] questionResult = new String[surveyList.size()][10];
         String[] surveyNames = new String[surveyList.size()];
@@ -238,8 +271,29 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
                     sd.append("result:");
                     for (int x = 0; x < options.size(); x++) {
                         Option option = options.get(x);
+                        Long optionId = option.getId();
 //                        选择该选项人数
-                        Integer num = relationMapper.countByOptionId(option.getId());
+                        Integer num = 0;
+                        if(grade != null)
+                            num = relationService.countByOptionIdAndStudentGrade(optionId, questionnaireId,grade);
+                        else if(sex != null) {
+                            if(questionnaireTarget.equals(TargetEnum.STUDENT.getTarget()))num = relationService.countByStundentSex(optionId, sex, questionnaireId);
+                            else num = relationService.countByTeacherSex(optionId, sex, questionnaireId);
+                        }
+                        else if(campus != null) {
+                            if(questionnaireTarget.equals(TargetEnum.STUDENT.getTarget())) num = relationService.countByStudentCampus(optionId,campus, questionnaireId);
+                            else num = relationService.countByTeacherCampus(optionId,campus, questionnaireId);
+                        }
+                        else if(academy != null){
+                            num = relationService.countByStudentAcademy(optionId,academy,questionnaireId);
+                        }
+                        else if(sort != null){
+                            if(questionnaireTarget.equals(TargetEnum.TEACHER.getTarget())){
+                                num = relationService.countByTeacherSort(optionId,sort,questionnaireId);
+                            }
+                        }
+                        else
+                            num = relationService.countByOptionId(optionId);
                         sd.append(num);
                         if(x < options.size() - 1) sd.append("**");
                     }
@@ -253,5 +307,4 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         resultVo.setResultNum(questionResult);
         return resultVo;
     }
-
 }

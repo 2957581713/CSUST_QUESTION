@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csust.csustquestion.mapper.StudentMapper">
+
+
+    <select id="getStudentIdByGradeAndQuestionnaireId" resultType="java.lang.Long">
+        SELECT `id` FROM student_info where `grade` = #{grade} and `questionnaire_id` = #{questionnaireId}
+    </select>
+    <select id="getStudentIdBySexAndQuestionnaireId" resultType="java.lang.Long">
+        SELECT `id` FROM student_info where `sex` = #{sex} and `questionnaire_id` = #{questionnaireId}
+    </select>
+    <select id="getStudentIdByCampusAndQuestionnaireId" resultType="java.lang.Long">
+        SELECT `id` FROM student_info where `campus` = #{campus} and `questionnaire_id` = #{questionnaireId}
+    </select>
+    <select id="getStudentIdByAcademyAdnQuestionnaired" resultType="java.lang.Long">
+        SELECT `id` FROM student_info where `academy_name` = #{academy} and `questionnaire_id` = #{questionnaireId}
+    </select>
+</mapper>

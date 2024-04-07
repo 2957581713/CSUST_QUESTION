@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csust.csustquestion.mapper.TeacherMapper">
+
+
+  <select id="getTeacherIdsBySortAndQuestionnaireId" resultType="java.lang.Long">
+    SELECT `id` FROM teacher_info where `sort` = #{sort} and `questionnaire_id` = #{questionnaireId}
+  </select>
+  <select id="getTeacherIdsBySexAndQuestionnaireId" resultType="java.lang.Long">
+    SELECT `id` FROM teacher_info where `sex` = #{sex} and `questionnaire_id` = #{questionnaireId}
+  </select>
+  <select id="getTeacherIdsByCampusAndQuestionnaireId" resultType="java.lang.Long">
+    SELECT `id` FROM teacher_info where `campus` = #{campus} and `questionnaire_id` = #{questionnaireId}
+  </select>
+</mapper>

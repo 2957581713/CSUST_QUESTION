@@ -12,6 +12,31 @@
     <select id="countByOptionId" resultType="java.lang.Integer">
         SELECT COUNT(id) FROM answer_option_relation WHERE option_id = #{optionId}
     </select>
+    <select id="countByOptionIdAndStudentIdList" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM answer_option_relation
+        <where>
+            option_id = #{optionId}
+            <if test=" studentIds != null and studentIds.size() > 0">
+                and user_id in
+                <foreach collection="studentIds" item="sids" open="(" separator="," close=")">
+                    #{sids}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+    <select id="countByOptionIdAndTeacherIdList" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM answer_option_relation
+        <where>
+            option_id = #{optionId}
+            <if test="subList != null and subList.size() > 0">
+                and user_id in
+                <foreach collection="subList" open="(" separator="," close=")" item="sl">
+                    #{sl}
+                </foreach>
+            </if>
+        </where>
+    </select>
 
 
 </mapper>

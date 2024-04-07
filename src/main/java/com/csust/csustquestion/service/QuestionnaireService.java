@@ -24,4 +24,14 @@ public interface QuestionnaireService {
     String[] getQuestionAndStatus2();
 
     ResultVo getResult(String questionnaireName);
+
+    ResultVo getResultByGrade(String questionnaireName, String grade);
+
+    ResultVo getResultBySex(String questionnaireName, String sex);
+
+    ResultVo getResultByCampus(String questionnaireName, String campus);
+
+    ResultVo getResultByAcademyName(String questionnaireName, String academyName);
+
+    ResultVo getResultBySort(String questionnaireName, String sort);
 }

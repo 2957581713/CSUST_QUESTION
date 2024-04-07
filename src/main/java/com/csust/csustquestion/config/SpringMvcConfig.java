@@ -25,7 +25,7 @@ public class SpringMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/user/login",
+                .excludePathPatterns("/user/login","/test/*",
                         "/swagger-ui.html","/v3/api-docs/swagger-config","/v3/api-docs"
                 ).order(1);
 
