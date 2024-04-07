@@ -35,6 +35,9 @@
     <select id="getByQuestionName" resultMap="BaseResult">
         SELECT * FROM survey_info where questionnaire_name = #{questionnaireName}
     </select>
+    <select id="getIdsByQuestionId" resultType="java.lang.Long">
+        SELECT `id` FROM survey_info WHERE questionnaire_id = #{questionnaireId}
+    </select>
 
 
 </mapper>

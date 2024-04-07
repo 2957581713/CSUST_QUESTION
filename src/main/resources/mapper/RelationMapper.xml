@@ -37,6 +37,10 @@
             </if>
         </where>
     </select>
+    <select id="getByOptionId" resultMap="BaseResult">
+        SELECT * FROM answer_option_relation
+        WHERE option_id = #{optionId}
+    </select>
 
 
 </mapper>

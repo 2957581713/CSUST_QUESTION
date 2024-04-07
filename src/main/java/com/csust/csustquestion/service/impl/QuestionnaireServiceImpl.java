@@ -102,6 +102,11 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         return questionnaireVo;
     }
 
+    @Override
+    public Questionnaire getQuestionnaireByName(String questionnaireName) {
+        return questionnaireMapper.selectByName(questionnaireName);
+    }
+
     // TODO 后面加入修改的功能
 //    添加涉及到的表有：问卷，问题，模块，选项
     @Override

@@ -31,6 +31,7 @@ public class SpringMvcConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(logInterceptor)
                 .addPathPatterns("/**").order(0);
+//
     }
 
     public void addCorsMappings(CorsRegistry registry) {

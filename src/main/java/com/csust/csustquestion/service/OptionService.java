@@ -6,6 +6,8 @@ public interface OptionService {
 
 
     void addOption(long questionId, String[] option);
+
+    Long getIdByQuestionId(Long questionId);
 }
 
 

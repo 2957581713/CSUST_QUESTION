@@ -1,5 +1,9 @@
 package com.csust.csustquestion.service;
 
+import com.csust.csustquestion.domain.Relation;
+
+import java.util.List;
+
 public interface RelationService {
     Integer countByOptionId(Long optionId);
 
@@ -16,4 +20,6 @@ public interface RelationService {
     Integer countByTeacherSex(Long optionId, String sex, Long questionnaireId);
 
     Integer countByTeacherCampus(Long optionId, String campus, Long questionnaireId);
+
+    List<Relation> getByOptionId(Long optionId);
 }

@@ -1,6 +1,7 @@
 package com.csust.csustquestion.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.csust.csustquestion.domain.Relation;
 import com.csust.csustquestion.mapper.RelationMapper;
 import com.csust.csustquestion.mapper.StudentMapper;
 import com.csust.csustquestion.mapper.TeacherMapper;
@@ -76,6 +77,11 @@ public class RelationServiceImpl implements RelationService {
     @Override
     public Integer countByTeacherCampus(Long optionId, String campus, Long questionnaireId) {
         return countTeacherByCondition(optionId,questionnaireId,null,null,campus);
+    }
+
+    @Override
+    public List<Relation> getByOptionId(Long optionId) {
+        return relationMapper.getByOptionId(optionId);
     }
 
     private Integer countTeacherByCondition(Long optionId,Long questionnaireId, String sort, String sex,String campus) {

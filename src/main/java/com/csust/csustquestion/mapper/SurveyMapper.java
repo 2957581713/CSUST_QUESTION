@@ -12,4 +12,6 @@ public interface SurveyMapper {
     List<String> getNameByQuestionName(String questionnaireName);
 
     List<Survey> getByQuestionName(String questionnaireName);
+
+    List<Long> getIdsByQuestionId(Long questionnaireId);
 }

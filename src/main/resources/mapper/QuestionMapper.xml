@@ -24,6 +24,21 @@
         WHERE survey_id = #{surveyId}
         order by id asc;
     </select>
+    <select id="getTypeQuestionInSurveyId" resultMap="BaseResult">
+        SELECT * FROM question_info
+        <where>
+            `question_type` = #{type}
+            <if test="surveyIdList != null and surveyIdList.size() > 0">
+                and `survey_id` in
+                <foreach collection="surveyIdList" open="(" item="sil" separator="," close=")">
+                    #{sil}
+                </foreach>
+            </if>
+        </where>
+
+
+    </select>
+
 
 
 </mapper>

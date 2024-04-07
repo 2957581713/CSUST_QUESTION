@@ -1,5 +1,6 @@
 package com.csust.csustquestion.service;
 
+import com.csust.csustquestion.domain.Questionnaire;
 import com.csust.csustquestion.vo.QuestionnaireVo;
 import com.csust.csustquestion.vo.ResultVo;
 
@@ -14,6 +15,7 @@ public interface QuestionnaireService {
 
     QuestionnaireVo getQuestionnaire(String questionnaireName);
 
+    Questionnaire getQuestionnaireByName(String questionnaireName);
     /*
     保存问卷
      */

@@ -8,4 +8,6 @@ public interface OptionMapper {
     List<Option> getQuestionOption(Long questionId);
 
     void insertList(List<Option> optionList);
+
+    Long getIdByQuestionId(Long questionId);
 }

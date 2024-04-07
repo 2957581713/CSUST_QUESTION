@@ -17,6 +17,9 @@
     <select id="getQuestionOption" resultMap="BaseResultMap">
         SELECT * FROM option_info where question_id = #{questionId} order by id asc;
     </select>
+    <select id="getIdByQuestionId" resultType="java.lang.Long">
+        SELECT id FROM option_info WHERE question_id = #{questionId}
+    </select>
 
 
 </mapper>

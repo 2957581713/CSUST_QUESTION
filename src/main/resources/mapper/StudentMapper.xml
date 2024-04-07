@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.csust.csustquestion.mapper.StudentMapper">
 
+    <resultMap id="BaseResult" type="com.csust.csustquestion.domain.Student">
+        <id property="id" jdbcType="BIGINT" column="id"/>
+        <result property="createDate" jdbcType="TIMESTAMP" column="create_date"/>
+        <result property="academyName" jdbcType="VARCHAR" column="academy_name"/>
+        <result property="campus" jdbcType="CHAR" column="campus"/>
+        <result property="grade" jdbcType="CHAR" column="grade"/>
+        <result property="openId" jdbcType="VARCHAR" column="open_id"/>
+        <result property="questionniareId" jdbcType="BIGINT" column="questionniare_id"/>
+        <result property="questionniareName" jdbcType="VARCHAR" column="questionniare_name"/>
+        <result property="sex" jdbcType="CHAR" column="sex"/>
+    </resultMap>
 
     <select id="getStudentIdByGradeAndQuestionnaireId" resultType="java.lang.Long">
         SELECT `id` FROM student_info where `grade` = #{grade} and `questionnaire_id` = #{questionnaireId}
@@ -14,5 +25,8 @@
     </select>
     <select id="getStudentIdByAcademyAdnQuestionnaired" resultType="java.lang.Long">
         SELECT `id` FROM student_info where `academy_name` = #{academy} and `questionnaire_id` = #{questionnaireId}
+    </select>
+    <select id="getById" resultMap="BaseResult">
+        SELECT * FROM student_info WHERE id = #{studentId}
     </select>
 </mapper>
