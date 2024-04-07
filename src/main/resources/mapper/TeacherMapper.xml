@@ -2,6 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.csust.csustquestion.mapper.TeacherMapper">
 
+  <resultMap id="BaseResultMap" type="com.csust.csustquestion.domain.Teacher">
+    <id property="id" jdbcType="BIGINT" column="id"/>
+    <result property="sex" jdbcType="CHAR" column="sex"/>
+    <result property="questionniareId" jdbcType="BIGINT" column="questionniare_id"/>
+    <result property="openId" jdbcType="VARCHAR" column="open_id"/>
+    <result property="campus" jdbcType="VARCHAR" column="campus"/>
+    <result property="createDate" jdbcType="TIMESTAMP" column="create_date"/>
+    <result property="questionnaireName" jdbcType="VARCHAR" column="questionnaire_name"/>
+    <result property="sort" jdbcType="VARCHAR" column="sort"/>
+  </resultMap>
 
   <select id="getTeacherIdsBySortAndQuestionnaireId" resultType="java.lang.Long">
     SELECT `id` FROM teacher_info where `sort` = #{sort} and `questionnaire_id` = #{questionnaireId}
@@ -11,5 +21,11 @@
   </select>
   <select id="getTeacherIdsByCampusAndQuestionnaireId" resultType="java.lang.Long">
     SELECT `id` FROM teacher_info where `campus` = #{campus} and `questionnaire_id` = #{questionnaireId}
+  </select>
+  <select id="getById" resultMap="BaseResultMap">
+    SELECT * FROM teacher_info WHERE id = #{id}
+  </select>
+  <select id="getIdByOpenId" resultType="java.lang.Long">
+    SELECT `id` FROM teacher_info WHERE `open_id` = #{openId} and `questionnaire_id` = #{questionnaireId}
   </select>
 </mapper>

@@ -60,7 +60,7 @@ public class LogAspect {
 //        过滤请求参数，敏感信息不泄漏
         String[] excludeProperties = {"userpassword"};
         PropertyPreFilters propertyPreFilters = new PropertyPreFilters();
-        PropertyPreFilters.MySimplePropertyPreFilter ex = propertyPreFilters.addFilter(excludeProperties);
+        PropertyPreFilters.MySimplePropertyPreFilter ex = propertyPreFilters.addFilter();
         ex.addExcludes(excludeProperties);
         LOG.info("请求参数：{}", JSONObject.toJSONString(objects,ex));
     }
@@ -68,12 +68,15 @@ public class LogAspect {
 
     @Around(value = "pointCut()")
     public Object doAround(ProceedingJoinPoint px) throws Throwable {
+        LOG.info("-------------请求开始---------");
         long start = System.currentTimeMillis();
         Object proceed = px.proceed();
         PropertyPreFilters propertyPreFilters = new PropertyPreFilters();
         String[] ex = {"userpassword"};
-        PropertyPreFilters.MySimplePropertyPreFilter es = propertyPreFilters.addFilter(ex);
-        LOG.info("返回结果：{}",JSONObject.toJSONString(proceed,es));
+        PropertyPreFilters.MySimplePropertyPreFilter es = propertyPreFilters.addFilter();
+        es.addExcludes(ex);
+        String result = JSONObject.toJSONString(proceed, es);
+        LOG.info("返回结果：{}",result);
         LOG.info("---  请求结束，用时：{}ms",System.currentTimeMillis()-start);
         return proceed;
     }

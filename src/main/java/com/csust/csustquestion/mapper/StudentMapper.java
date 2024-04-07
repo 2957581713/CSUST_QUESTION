@@ -15,4 +15,7 @@ public interface StudentMapper {
     List<Long> getStudentIdByAcademyAdnQuestionnaired(@Param("academy") String academy,@Param("questionnaireId") Long questionnaireId);
 
     Student getById(Long studentId);
+
+    Long getIdByOpenIdAndQuestionnaireId(@Param("openId") String openId,
+                                         @Param("questionnaireId") Long questionnaireId);
 }

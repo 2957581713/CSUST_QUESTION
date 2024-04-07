@@ -17,4 +17,9 @@ public class StudentServiceImpl implements StudentService {
     public Student getById(Long studentId) {
         return studentMapper.getById(studentId);
     }
+
+    @Override
+    public Long getStudentId(String openId, Long questionnaireId) {
+        return studentMapper.getIdByOpenIdAndQuestionnaireId(openId,questionnaireId);
+    }
 }

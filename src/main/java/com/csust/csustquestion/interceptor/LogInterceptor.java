@@ -21,7 +21,6 @@ public class LogInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if(!(handler instanceof HandlerMethod)) return true;
         MDC.put("LOG_ID",System.currentTimeMillis()+""+ RandomUtil.randomString(3));
-        LOG.info("-------------请求开始---------");
         return true;
     }
 

@@ -29,4 +29,7 @@
     <select id="getById" resultMap="BaseResult">
         SELECT * FROM student_info WHERE id = #{studentId}
     </select>
+    <select id="getIdByOpenIdAndQuestionnaireId" resultType="java.lang.Long">
+        SELECT `id` FROM student_info WHERE `questionnaire_id` = #{questionnaireId} and `open_id` = #{openId}
+    </select>
 </mapper>
